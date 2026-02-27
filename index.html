@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LiProfil v11.2 Pro</title>
+    <title>LiProfil v11.4 Pro</title>
     <link rel="apple-touch-icon" href="https://massimodemuro.github.io/biglietto-digitale/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -12,33 +12,32 @@
         header { background: #fff; text-align: center; padding: 15px; border-bottom: 1px solid #eee; }
         .section { display: none; padding: 15px; max-width: 400px; margin: auto; }
         .active { display: block !important; }
-        .card { background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); text-align: center; margin-bottom: 15px; }
+        .card { background: #fff; padding: 20px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); text-align: center; margin-bottom: 15px; }
         
         .note-input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; font-size: 16px; box-sizing: border-box; margin-bottom: 10px; }
-        .btn-mic { background: var(--primary); color: white; border: none; width: 75px; height: 75px; border-radius: 50%; font-size: 28px; margin: 10px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: 0.3s; }
-        .btn-save { background: var(--accent); color: white; border: none; padding: 15px; border-radius: 12px; width: 100%; font-weight: bold; margin-top: 10px; }
+        .btn-mic { background: var(--primary); color: white; border: none; width: 65px; height: 65px; border-radius: 50%; font-size: 24px; margin: 10px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .btn-save { background: var(--accent); color: white; border: none; padding: 15px; border-radius: 12px; width: 100%; font-weight: bold; margin-top: 5px; }
         .recording { animation: pulse 1.5s infinite; background: var(--danger) !important; }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
-        .note-card { background: #fff; padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 5px solid var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.05); text-align: left; position: relative; }
-        .note-actions { display: flex; gap: 25px; border-top: 1px solid #eee; padding-top: 10px; margin-top: 10px; }
-        .wa-btn { color: #25D366; font-size: 24px; background:none; border:none; padding:0; cursor:pointer; }
-        .mail-btn { color: #ea4335; font-size: 24px; background:none; border:none; padding:0; cursor:pointer; }
+        .note-card { background: #fff; padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 5px solid var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.05); text-align: left; }
+        .note-actions { display: flex; gap: 20px; border-top: 1px solid #eee; padding-top: 10px; margin-top: 10px; }
+        .wa-btn { color: #25D366; font-size: 22px; background:none; border:none; }
+        .mail-btn { color: #ea4335; font-size: 22px; background:none; border:none; }
 
-        .tools-box { background: #eef2f7; padding: 15px; border-radius: 15px; margin-top: 30px; border: 1px dashed var(--primary); }
-        .btn-export { background: var(--primary); color: white; border: none; padding: 10px; border-radius: 8px; width: 100%; font-weight: bold; margin-top: 10px; cursor: pointer; }
-
-        nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; height: 85px; border-top: 1px solid #ddd; z-index: 9999; padding-bottom: env(safe-area-inset-bottom); }
-        .nav-btn { background: none; border: none; color: #8e8e93; font-size: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; outline: none; }
-        .nav-btn i { font-size: 20px; margin-bottom: 4px; }
-        .nav-btn.active-nav { color: var(--primary); background: #f0f4f8; border-top: 3px solid var(--primary); }
-
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; background: white; padding: 10px; border-radius: 15px; }
-        .day { aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; border-radius: 5px; font-size: 13px; cursor: pointer; position: relative; }
+        .agenda-box { background: #fff; padding: 15px; border-radius: 20px; margin-top: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-top: 10px; }
+        .day { aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; border-radius: 5px; font-size: 12px; cursor: pointer; position: relative; }
         .day.has-note::after { content: ''; width: 4px; height: 4px; background: var(--accent); border-radius: 50%; position: absolute; bottom: 3px; }
         .day.selected { background: var(--primary); color: white; }
 
-        /* Stile per il link "Crea il tuo" */
+        .settings-item { background: #fff; padding: 15px; border-radius: 12px; margin-bottom: 10px; text-align: left; display: flex; justify-content: space-between; align-items: center; border: 1px solid #eee; }
+
+        nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; height: 85px; border-top: 1px solid #ddd; z-index: 9999; padding-bottom: env(safe-area-inset-bottom); }
+        .nav-btn { background: none; border: none; color: #8e8e93; font-size: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; }
+        .nav-btn i { font-size: 20px; margin-bottom: 4px; }
+        .nav-btn.active-nav { color: var(--primary); background: #f0f4f8; border-top: 3px solid var(--primary); }
+
         .btn-create { display: inline-block; background: #eef2f7; color: var(--primary); padding: 10px 20px; border-radius: 20px; text-decoration: none; font-size: 12px; font-weight: bold; margin-top: 15px; border: 1px solid #d0d7de; }
     </style>
 </head>
@@ -48,11 +47,10 @@
 
 <div id="biglietto" class="section active">
     <div class="card">
-        <h3 style="margin:0;">Massimo De Muro</h3>
-        <p style="color:#666;">Giornalista & Autore</p>
+        <h3>Massimo De Muro</h3>
+        <p>Giornalista & Autore</p>
         <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=BEGIN:VCARD%0AVERSION:3.0%0AN:De Muro;Massimo;;;%0AFN:Massimo De Muro%0AEND:VCARD" alt="QR" style="border-radius:12px; margin: 15px 0;">
-        <p style="font-size:12px; color: var(--primary); font-weight:bold;">Inquadra per salvare il contatto</p>
-        
+        <p style="font-size:12px; color: var(--primary); font-weight:bold;">Inquadra per la rubrica</p>
         <a href="https://github.com/massimodemuro/biglietto-digitale" target="_blank" class="btn-create">
             <i class="fa-solid fa-wand-magic-sparkles"></i> Crea il tuo LiProfil
         </a>
@@ -62,47 +60,55 @@
 <div id="guida-sez" class="section">
     <div class="card" style="border: 2px solid var(--danger);">
         <h3 style="color: var(--danger);"><i class="fa-solid fa-car"></i> Modalità Guida</h3>
-        <p style="font-size: 13px;">L'app salva ogni frase da sola. Dopo il bip, dì <b>"WhatsApp"</b> o <b>"Email"</b> per inviare al volo.</p>
+        <p style="font-size: 13px;">Ascolto automatico attivo. Dopo ogni nota, dì <b>"WhatsApp"</b> o <b>"Email"</b> per inviare.</p>
         <button id="guide-toggle" class="btn-mic" onclick="toggleGuideMode()" style="width: 100px; height: 100px; font-size: 40px;">
             <i class="fa-solid fa-microphone"></i>
         </button>
-        <p id="guide-status" style="font-weight: bold; margin-top: 10px; color: var(--primary);">Microfono Spento</p>
+        <p id="guide-status" style="font-weight: bold; margin-top: 10px; color: var(--primary);">OFF</p>
     </div>
 </div>
 
 <div id="organizer" class="section">
-    <textarea id="note-text" class="note-input" rows="4" placeholder="Scrivi o detta un appunto rapido..."></textarea>
-    <div style="text-align:center;">
-        <button id="manual-mic" class="btn-mic" onclick="startManualMic()" style="width: 60px; height: 60px; font-size: 20px;"><i class="fa-solid fa-microphone"></i></button>
-    </div>
-    <button onclick="saveNoteFromInput()" class="btn-save">Salva nell'Organizer</button>
-    
-    <div id="recent-notes" style="margin-top: 25px;">
-        <h4 style="color: var(--primary); border-bottom: 1px solid #ddd; padding-bottom: 5px;">Note Recenti</h4>
-        <div id="notes-container"></div>
+    <div class="card" style="padding: 15px;">
+        <textarea id="note-text" class="note-input" rows="3" placeholder="Scrivi un appunto..."></textarea>
+        <button id="manual-mic" class="btn-mic" onclick="startManualMic()" style="width: 50px; height: 50px; font-size: 18px;"><i class="fa-solid fa-microphone"></i></button>
+        <button onclick="saveNoteFromInput()" class="btn-save">Salva Nota</button>
     </div>
 
-    <div class="tools-box">
-        <h4 style="margin-top:0; color: var(--primary);"><i class="fa-solid fa-gears"></i> Strumenti & Assistenza</h4>
-        <button onclick="exportNotes()" class="btn-export"><i class="fa-solid fa-file-export"></i> Esporta Report Note</button>
-        <hr style="margin:15px 0; border:0; border-top:1px solid #ccc;">
-        <div style="font-size:11px; color:#666;">
-            <strong>Privacy:</strong> Dati salvati localmente.
-        </div>
+    <div class="agenda-box">
+        <h4 style="margin:0; color: var(--primary); text-align:center;"><i class="fa-solid fa-calendar-days"></i> Agenda Storica</h4>
+        <div id="month-name" style="text-align:center; font-size:14px; margin-top:10px; font-weight:bold;"></div>
+        <div id="calendar-grid" class="calendar-grid"></div>
+        <div id="day-notes-list" style="margin-top:15px;"></div>
     </div>
 </div>
 
-<div id="calendario-sez" class="section">
-    <div id="month-name" style="text-align:center; font-weight:bold; margin-bottom:10px; color: var(--primary);"></div>
-    <div id="calendar-grid" class="calendar-grid"></div>
-    <div id="day-notes-list" style="margin-top:20px;"></div>
+<div id="assistenza" class="section">
+    <h4 style="color: var(--primary); margin-left: 10px;"><i class="fa-solid fa-sliders"></i> Impostazioni</h4>
+    <div class="settings-item">
+        <span>Backup Dati</span>
+        <button onclick="exportNotes()" style="background:var(--primary); color:white; border:none; padding:8px 12px; border-radius:8px;">Esporta</button>
+    </div>
+    <div class="settings-item">
+        <span>Lingua Riconoscimento</span>
+        <span style="font-weight:bold; color:var(--accent);">Italiano</span>
+    </div>
+    <div class="settings-item">
+        <span>Privacy Bunker</span>
+        <span style="font-size:11px; color:green;">ATTIVO (Locale)</span>
+    </div>
+    
+    <div class="card" style="margin-top:20px; text-align:left; font-size:13px; color:#555;">
+        <strong>Assistenza Rapida:</strong><br>
+        In Modalità Guida, l'app salva da sola quando smetti di parlare. Ricorda di dare i permessi al microfono nel browser.
+    </div>
 </div>
 
 <nav>
     <button class="nav-btn active-nav" id="btn-biglietto" onclick="switchTab('biglietto')"><i class="fa-solid fa-user"></i><span>Profilo</span></button>
     <button class="nav-btn" id="btn-guida-sez" onclick="switchTab('guida-sez')"><i class="fa-solid fa-car"></i><span>Guida</span></button>
-    <button class="nav-btn" id="btn-organizer" onclick="switchTab('organizer'); renderRecentNotes();"><i class="fa-solid fa-box-archive"></i><span>Organizer</span></button>
-    <button class="nav-btn" id="btn-calendario-sez" onclick="switchTab('calendario-sez')"><i class="fa-solid fa-calendar-days"></i><span>Agenda</span></button>
+    <button class="nav-btn" id="btn-organizer" onclick="switchTab('organizer'); renderCalendar();"><i class="fa-solid fa-box-archive"></i><span>Organizer</span></button>
+    <button class="nav-btn" id="btn-assistenza" onclick="switchTab('assistenza')"><i class="fa-solid fa-gears"></i><span>Assistenza</span></button>
 </nav>
 
 <script>
@@ -118,7 +124,7 @@
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-nav'));
         document.getElementById(id).classList.add('active');
         document.getElementById('btn-' + id).classList.add('active-nav');
-        if(id === 'calendario-sez') renderCalendar();
+        if(id === 'organizer') renderCalendar();
     }
 
     function saveNote(text) {
@@ -127,7 +133,7 @@
         const newNote = { id: Date.now(), date: new Date().toISOString().split('T')[0], content: text };
         notes.unshift(newNote);
         localStorage.setItem(DB_NAME, JSON.stringify(notes));
-        renderRecentNotes();
+        if(document.getElementById('organizer').classList.contains('active')) renderCalendar();
         return newNote;
     }
 
@@ -147,13 +153,11 @@
         const status = document.getElementById('guide-status');
         if(isGuideMode) {
             btn.classList.add('recording');
-            status.innerText = "ASCOLTO ATTIVO...";
-            status.style.color = "var(--danger)";
+            status.innerText = "ON";
             recognition.start();
         } else {
             btn.classList.remove('recording');
-            status.innerText = "Microfono Spento";
-            status.style.color = "var(--primary)";
+            status.innerText = "OFF";
             recognition.stop();
         }
     }
@@ -179,31 +183,17 @@
                 if(last) shareMail(last.content);
             } else {
                 saveNote(transcript);
-                const synth = window.speechSynthesis;
-                synth.speak(new SpeechSynthesisUtterance("Salvato. WhatsApp o Email?"));
+                window.speechSynthesis.speak(new SpeechSynthesisUtterance("Salvato. WhatsApp o Email?"));
             }
         }
     };
 
     recognition.onend = () => { if(isGuideMode) recognition.start(); };
 
-    function renderRecentNotes() {
-        const container = document.getElementById('notes-container');
-        const notes = JSON.parse(localStorage.getItem(DB_NAME) || "[]").slice(0, 3);
-        container.innerHTML = notes.map(n => `
-            <div class="note-card">
-                <div style="font-size:14px;">${n.content}</div>
-                <div class="note-actions">
-                    <button class="wa-btn" onclick="shareWA('${n.content}')"><i class="fa-brands fa-whatsapp"></i></button>
-                    <button class="mail-btn" onclick="shareMail('${n.content}')"><i class="fa-solid fa-envelope"></i></button>
-                </div>
-            </div>
-        `).join('') || "<p style='font-size:12px; color:#999;'>Nessuna nota recente.</p>";
-    }
-
     function renderCalendar() {
         const grid = document.getElementById('calendar-grid');
         const monthLabel = document.getElementById('month-name');
+        if(!grid) return;
         const year = vDate.getFullYear();
         const month = vDate.getMonth();
         const notes = JSON.parse(localStorage.getItem(DB_NAME) || "[]");
@@ -227,18 +217,17 @@
                     <button class="mail-btn" onclick="shareMail('${n.content}')"><i class="fa-solid fa-envelope"></i></button>
                 </div>
             </div>
-        `).join('') || "Nessuna nota.";
+        `).join('') || "<p style='font-size:12px; color:#999; text-align:center;'>Nessuna nota.</p>";
     }
 
     function exportNotes() {
         const notes = JSON.parse(localStorage.getItem(DB_NAME) || "[]");
-        if(notes.length === 0) { alert("Archivio vuoto."); return; }
-        let report = "REPORT LIPROFIL - MASSIMO DE MURO\n\n";
+        let report = "LIPROFIL REPORT\n\n";
         notes.forEach(n => { report += `${n.date}: ${n.content}\n\n`; });
-        navigator.clipboard.writeText(report).then(() => alert("Tutto l'archivio è stato copiato!"));
+        navigator.clipboard.writeText(report).then(() => alert("Dati copiati!"));
     }
 
-    window.onload = () => { renderCalendar(); renderRecentNotes(); };
+    window.onload = () => { renderCalendar(); };
 </script>
 </body>
 </html>
