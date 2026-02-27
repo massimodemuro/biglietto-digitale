@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" href="https://massimodemuro.github.io/biglietto-digitale/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --primary: #003366; --bg: #f4f4f9; --accent: #007aff; }
+        :root { --primary: #003366; --bg: #f4f4f9; --accent: #007aff; --success: #28a745; }
         body { font-family: -apple-system, system-ui, sans-serif; margin: 0; background: var(--bg); padding-bottom: 110px; -webkit-tap-highlight-color: transparent; }
         header { background: #fff; text-align: center; padding: 15px; border-bottom: 1px solid #eee; }
         .section { display: none; padding: 15px; max-width: 400px; margin: auto; }
@@ -15,10 +15,10 @@
         .card { background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); text-align: center; }
         
         .note-input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; font-size: 16px; box-sizing: border-box; margin-bottom: 10px; }
-        .btn-mic { background: var(--primary); color: white; border: none; width: 65px; height: 65px; border-radius: 50%; font-size: 22px; margin: 10px 0; }
+        .btn-mic { background: var(--primary); color: white; border: none; width: 65px; height: 65px; border-radius: 50%; font-size: 22px; margin: 10px 0; outline: none; }
         .recording { background: #ff3b30; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity:1; } 50% { opacity:0.5; } 100% { opacity:1; } }
-        .btn-save { background: var(--accent); color: white; border: none; padding: 15px; border-radius: 12px; width: 100%; font-weight: bold; }
+        .btn-save { background: var(--accent); color: white; border: none; padding: 15px; border-radius: 12px; width: 100%; font-weight: bold; font-size: 16px; }
 
         .calendar-container { background: #fff; border-radius: 15px; padding: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; }
         .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
@@ -28,11 +28,11 @@
         .day.selected { background: var(--primary); color: white; }
 
         .help-item { background: #fff; padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 4px solid var(--accent); text-align: left; }
-        .btn-export { background: #28a745; color: white; border: none; padding: 12px; border-radius: 10px; width: 100%; font-weight: bold; margin-top: 10px; }
+        .btn-export { background: var(--success); color: white; border: none; padding: 12px; border-radius: 10px; width: 100%; font-weight: bold; margin-top: 10px; font-size: 14px; }
 
         nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; height: 85px; border-top: 1px solid #ddd; z-index: 9999; padding-bottom: env(safe-area-inset-bottom); }
-        .nav-btn { background: none; border: none; color: #8e8e93; font-size: 9px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; }
-        .nav-btn i { font-size: 18px; margin-bottom: 4px; }
+        .nav-btn { background: none; border: none; color: #8e8e93; font-size: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; outline: none; }
+        .nav-btn i { font-size: 20px; margin-bottom: 4px; }
         .nav-btn.active-nav { color: var(--primary); background: #f0f4f8; border-top: 3px solid var(--primary); }
     </style>
 </head>
@@ -48,7 +48,7 @@
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=BEGIN:VCARD%0AVERSION:3.0%0AN:De Muro;Massimo;;;%0AFN:Massimo De Muro%0AORG:Giornalista e Autore%0AEMAIL;TYPE=INTERNET:massimo.demuro@esempio.it%0ATEL;TYPE=CELL:3330000000%0AURL:https://massimodemuro.github.io/biglietto-digitale/%0AEND:VCARD" 
                  alt="QR Contatto" style="border: 8px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 12px;">
         </div>
-        <p style="font-size: 13px; font-weight: bold; color: var(--primary);">Fallo inquadrare per salvare il contatto</p>
+        <p style="font-size: 13px; font-weight: bold; color: var(--primary);">Inquadra per salvare il contatto</p>
         <div style="border-top: 1px solid #eee; padding-top: 15px; margin-top: 15px;">
             <a href="https://github.com/massimodemuro/biglietto-digitale" target="_blank" style="display: inline-block; background: #eef2f7; color: var(--primary); padding: 8px 15px; border-radius: 20px; text-decoration: none; font-size: 11px; font-weight: bold;">
                 <i class="fa-solid fa-wand-magic-sparkles"></i> Crea il tuo LiProfil
@@ -67,9 +67,9 @@
 <div id="calendario-sez" class="section">
     <div class="calendar-container">
         <div class="calendar-header">
-            <button onclick="changeMonth(-1)" style="border:none; background:#eee; border-radius:50%; width:30px; height:30px;"><</button>
-            <span id="month-name">Mese</span>
-            <button onclick="changeMonth(1)" style="border:none; background:#eee; border-radius:50%; width:30px; height:30px;">></button>
+            <button onclick="changeMonth(-1)" style="border:none; background:#eee; border-radius:50%; width:30px; height:30px;"><i class="fa-solid fa-chevron-left"></i></button>
+            <span id="month-name" style="font-weight:bold;">Mese</span>
+            <button onclick="changeMonth(1)" style="border:none; background:#eee; border-radius:50%; width:30px; height:30px;"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
         <div class="calendar-grid" id="calendar-grid"></div>
     </div>
@@ -78,27 +78,16 @@
 
 <div id="assistenza" class="section">
     <h3 style="text-align:center; color: var(--primary);">Strumenti & Guida</h3>
-    <div class="help-item">
+    <div class="help-item" style="border-left-color: var(--success);">
         <strong>Esporta Archivio:</strong><br>
-        Genera un report testuale di tutte le tue note salvate.
+        Copia tutte le note salvate negli appunti.
         <button onclick="exportNotes()" class="btn-export"><i class="fa-solid fa-file-export"></i> Copia Report Note</button>
-    <div id="assistenza" class="section">
-    <h3 style="text-align:center; color: var(--primary);">Strumenti & Guida</h3>
-    
-    <div class="help-item" style="background: #f8fff9; border-left: 4px solid #28a745;">
-        <strong>Esporta Archivio:</strong><br>
-        Genera un report testuale di tutte le tue note salvate nell'organizer.
-        <button onclick="exportNotes()" class="btn-export" style="background: #28a745; color: white; border: none; padding: 12px; border-radius: 10px; width: 100%; font-weight: bold; margin-top: 10px; cursor: pointer;">
-            <i class="fa-solid fa-file-export"></i> Copia Report Note
-        </button>
     </div>
-
     <div class="help-item">
-        <i class="fa-solid fa-id-card"></i> <strong>Contatto:</strong> Il QR Code integra Nome, Ruolo, Email e Telefono.
+        <i class="fa-solid fa-id-card"></i> <strong>Contatto:</strong> QR universale con i tuoi dati.
     </div>
-    
     <div class="help-item">
-        <i class="fa-solid fa-shield-halved"></i> <strong>Privacy:</strong> Tutti i dati sono salvati solo sul tuo telefono (LocalStorage).
+        <i class="fa-solid fa-shield-halved"></i> <strong>Privacy:</strong> Dati salvati solo localmente.
     </div>
 </div>
 
@@ -109,7 +98,7 @@
     <button class="nav-btn" id="btn-organizer" onclick="switchTab('organizer')">
         <i class="fa-solid fa-pen"></i><span>Organizer</span>
     </button>
-    <button class="nav-btn" id="btn-calendario-sez" onclick="switchTab('calendario-sez'); renderCalendar();">
+    <button class="nav-btn" id="btn-calendario-sez" onclick="switchTab('calendario-sez')">
         <i class="fa-solid fa-calendar"></i><span>Agenda</span>
     </button>
     <button class="nav-btn" id="btn-assistenza" onclick="switchTab('assistenza')">
@@ -122,25 +111,28 @@
     let sDateStr = new Date().toISOString().split('T')[0];
     const DB_NAME = 'liProfil_v9';
 
+    // Gestione Tab
     function switchTab(id) {
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-nav'));
         document.getElementById(id).classList.add('active');
         document.getElementById('btn-' + id).classList.add('active-nav');
+        if(id === 'calendario-sez') renderCalendar();
     }
 
+    // Salvataggio Note
     function saveNote() {
         const text = document.getElementById('note-text').value;
         const date = document.getElementById('note-date').value || new Date().toISOString().split('T')[0];
-        if(!text) return;
+        if(!text) { alert("Scrivi qualcosa prima di salvare!"); return; }
         const notes = JSON.parse(localStorage.getItem(DB_NAME) || "[]");
         notes.unshift({ id: Date.now(), date: date, content: text });
         localStorage.setItem(DB_NAME, JSON.stringify(notes));
         document.getElementById('note-text').value = "";
-        alert("Nota salvata!");
-        renderCalendar();
+        alert("Salvato correttamente!");
     }
 
+    // Calendario
     function changeMonth(dir) { vDate.setMonth(vDate.getMonth() + dir); renderCalendar(); }
 
     function renderCalendar() {
@@ -154,4 +146,46 @@
         const notes = JSON.parse(localStorage.getItem(DB_NAME) || "[]");
         monthLabel.innerText = new Intl.DateTimeFormat('it-IT', { month: 'long', year: 'numeric' }).format(vDate);
         grid.innerHTML = "";
-        ["L
+        ["L","M","M","G","V","S","D"].forEach(d => grid.innerHTML += `<div style='font-size:10px; color:#888; font-weight:bold;'>${d}</div>`);
+        let start = firstDay === 0 ? 6 : firstDay - 1;
+        for (let i = 0; i < start; i++) grid.innerHTML += `<div></div>`;
+        for (let d = 1; d <= daysInMonth; d++) {
+            const dStr = `${year}-${String(month+1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+            const hasNote = notes.some(n => n.date === dStr);
+            grid.innerHTML += `<div class="day ${hasNote ? 'has-note' : ''} ${sDateStr === dStr ? 'selected' : ''}" onclick="showNotes('${dStr}')">${d}</div>`;
+        }
+    }
+
+    function showNotes(date) {
+        sDateStr = date; renderCalendar();
+        const notes = JSON.parse(localStorage.getItem(DB_NAME) || "[]").filter(n => n.date === date);
+        document.getElementById('day-notes-list').innerHTML = notes.length ? notes.map(n => `<div style="background:#fff; padding:10px; border-radius:8px; margin-bottom:5px; border-left:4px solid var(--primary); text-align:left; font-size:14px;">${n.content}</div>`).join('') : "<p style='font-size:12px; color:#999; text-align:center;'>Nessun appunto per oggi.</p>";
+    }
+
+    // Esportazione
+    function exportNotes() {
+        const notes = JSON.parse(localStorage.getItem(DB_NAME) || "[]");
+        if (notes.length === 0) { alert("Non ci sono note salvate."); return; }
+        notes.sort((a, b) => new Date(a.date) - new Date(b.date));
+        let report = "REPORT NOTE LIPROFIL - MASSIMO DE MURO\n\n";
+        notes.forEach(n => { report += `DATA: ${n.date}\nNOTA: ${n.content}\n-------------------\n`; });
+        navigator.clipboard.writeText(report).then(() => {
+            alert("Tutte le note sono state copiate negli appunti!");
+        }).catch(err => {
+            alert("Errore. Copia non riuscita.");
+        });
+    }
+
+    // Microfono
+    const micBtn = document.getElementById('start-record');
+    if ('webkitSpeechRecognition' in window) {
+        const rec = new webkitSpeechRecognition();
+        rec.lang = "it-IT";
+        rec.onresult = (e) => { document.getElementById('note-text').value += e.results[0][0].transcript + " "; micBtn.classList.remove('recording'); };
+        micBtn.onclick = () => { rec.start(); micBtn.classList.add('recording'); };
+    }
+
+    window.onload = renderCalendar;
+</script>
+</body>
+</html>
