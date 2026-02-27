@@ -7,45 +7,83 @@
     <link rel="apple-touch-icon" href="https://massimodemuro.github.io/biglietto-digitale/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --primary: #003366; --bg: #f4f4f9; --accent: #007aff; }
+        :root { --primary: #003366; --bg: #f4f4f9; --accent: #007aff; --deadline: #ff9500; }
         body { font-family: -apple-system, system-ui, sans-serif; margin: 0; background: var(--bg); padding-bottom: 120px; -webkit-tap-highlight-color: transparent; }
         header { background: #fff; text-align: center; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .section { display: none; padding: 20px; max-width: 400px; margin: auto; text-align: center; }
+        .section { display: none; padding: 15px; max-width: 400px; margin: auto; text-align: center; }
         .active { display: block !important; }
-        .card { background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); margin-top: 10px; }
         
-        /* Area Microfono e Input */
-        .btn-mic { background: var(--primary); color: white; border: none; width: 85px; height: 85px; border-radius: 50%; font-size: 30px; margin: 15px 0; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-        .recording { background: #ff3b30; transform: scale(1.1); }
+        /* Controlli Organizer */
         .note-input { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #ddd; font-size: 18px; box-sizing: border-box; background: #fff; margin-bottom: 10px; }
-        .btn-save { background: var(--accent); color: white; border: none; padding: 18px; border-radius: 12px; font-weight: bold; width: 100%; font-size: 16px; margin-bottom: 20px; }
+        .category-select { display: flex; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 5px; }
+        .cat-btn { background: #eee; border: none; padding: 8px 12px; border-radius: 8px; font-size: 12px; flex: 1; }
+        .cat-btn.selected { background: var(--primary); color: white; }
+        
+        /* Nuovi campi Data */
+        .date-input-container { display: flex; align-items: center; background: #fff; border-radius: 12px; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; }
+        .date-input-container label { font-size: 12px; color: #666; margin-right: 10px; }
+        .date-input { border: none; font-family: inherit; font-size: 14px; width: 100%; outline: none; }
 
-        /* NAVIGAZIONE MIGLIORATA */
+        .btn-mic { background: var(--primary); color: white; border: none; width: 75px; height: 75px; border-radius: 50%; font-size: 28px; margin: 10px 0; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .recording { background: #ff3b30; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        .btn-save { background: var(--accent); color: white; border: none; padding: 15px; border-radius: 12px; font-weight: bold; width: 100%; font-size: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+
+        /* Archivio */
+        .archive-filters { display: flex; gap: 5px; margin-top: 25px; overflow-x: auto; padding-bottom: 10px; }
+        .filter-tag { padding: 5px 15px; background: #fff; border: 1px solid #ddd; border-radius: 15px; font-size: 12px; white-space: nowrap; }
+        .filter-tag.active-filter { background: var(--primary); color: white; }
+        
+        .note-item { background: #fff; padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 5px solid var(--primary); position: relative; text-align: left; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .note-item.has-deadline { border-left-color: var(--deadline); }
+        .note-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+        .note-cat { font-size: 10px; font-weight: bold; color: var(--accent); text-transform: uppercase; }
+        .note-deadline { font-size: 11px; font-weight: bold; color: var(--deadline); }
+        .btn-del { position: absolute; bottom: 10px; right: 10px; color: #ccc; border: none; background: none; font-size: 16px; }
+
         nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; height: 85px; border-top: 1px solid #ddd; z-index: 1000; padding-bottom: env(safe-area-inset-bottom); }
-        .nav-btn { background: none; border: none; color: #8e8e93; font-size: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; width: 50%; height: 100%; transition: all 0.2s; }
-        .nav-btn i { font-size: 28px; margin-bottom: 4px; }
+        .nav-btn { background: none; border: none; color: #8e8e93; font-size: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 50%; height: 100%; }
         .nav-btn.active-nav { color: var(--primary); background: #f0f7ff; border-top: 3px solid var(--primary); }
     </style>
+</head>
+<body>
 
 <header><h1>LiProfil</h1></header>
 
 <div id="biglietto" class="section active">
-    <div class="card">
+    <div style="background:#fff; padding:25px; border-radius:20px; box-shadow:0 10px 20px rgba(0,0,0,0.1);">
         <h2 style="margin:0;">Massimo De Muro</h2>
         <p style="color:#666;">Giornalista & Autore</p>
-        <div style="font-size: 120px; color: var(--primary); margin: 30px 0;"><i class="fa-solid fa-qrcode"></i></div>
+        <div style="font-size: 100px; color: var(--primary); margin: 20px 0;"><i class="fa-solid fa-qrcode"></i></div>
         <p>Mostra per far inquadrare il profilo</p>
     </div>
 </div>
 
 <div id="organizer" class="section">
-    <h3>Organizer Vocale</h3>
-    <textarea id="note-text" class="note-input" rows="4" placeholder="Dettami un'idea..."></textarea>
-    <button id="start-record" class="btn-mic"><i class="fa-solid fa-microphone"></i></button>
-    <button onclick="saveNote()" class="btn-save">Salva in Archivio</button>
+    <textarea id="note-text" class="note-input" rows="3" placeholder="Dettami un'idea o un impegno..."></textarea>
+    
+    <div class="category-select">
+        <button class="cat-btn selected" onclick="selectCat(this, 'Varie')">Varie</button>
+        <button class="cat-btn" onclick="selectCat(this, 'Libro')">Libro</button>
+        <button class="cat-btn" onclick="selectCat(this, 'Scadenza')">Impegno</button>
+        <button class="cat-btn" onclick="selectCat(this, 'Contatti')">Contatti</button>
+    </div>
 
-    <div class="archive" id="archive-list">
-        </div>
+    <div class="date-input-container">
+        <label><i class="fa-regular fa-calendar-check"></i></label>
+        <input type="datetime-local" id="note-deadline" class="date-input">
+    </div>
+
+    <button id="start-record" class="btn-mic"><i class="fa-solid fa-microphone"></i></button>
+    <button onclick="saveNote()" class="btn-save">Salva in Agenda</button>
+
+    <div class="archive-filters" id="filters">
+        <button class="filter-tag active-filter" onclick="filterNotes('Tutte')">Tutte</button>
+        <button class="filter-tag" onclick="filterNotes('Scadenza')">📅 Agenda</button>
+        <button class="filter-tag" onclick="filterNotes('Libro')">Libro</button>
+    </div>
+    
+    <div id="archive-list" style="margin-top:10px;"></div>
 </div>
 
 <nav>
@@ -58,61 +96,80 @@
 </nav>
 
 <script>
-    function switchTab(sectionId) {
+    let currentCategory = "Varie";
+    let currentFilter = "Tutte";
+
+    function switchTab(id) {
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-nav'));
-        document.getElementById(sectionId).classList.add('active');
-        document.getElementById('btn-' + sectionId).classList.add('active-nav');
+        document.getElementById(id).classList.add('active');
+        document.getElementById('btn-' + id).classList.add('active-nav');
+    }
+
+    function selectCat(btn, cat) {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        currentCategory = cat;
+    }
+
+    function filterNotes(cat) {
+        currentFilter = cat;
+        document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active-filter'));
+        event.target.classList.add('active-filter');
+        renderNotes();
     }
 
     const btn = document.getElementById('start-record');
     const textArea = document.getElementById('note-text');
-    let recognition;
-
     if ('webkitSpeechRecognition' in window) {
-        recognition = new webkitSpeechRecognition();
-        recognition.lang = "it-IT";
-        recognition.onresult = (e) => {
-            textArea.value += e.results[0][0].transcript + " ";
-            btn.classList.remove('recording');
-        };
-        btn.onclick = () => { recognition.start(); btn.classList.add('recording'); };
+        const rec = new webkitSpeechRecognition();
+        rec.lang = "it-IT";
+        rec.onresult = (e) => { textArea.value += e.results[0][0].transcript + " "; btn.classList.remove('recording'); };
+        btn.onclick = () => { rec.start(); btn.classList.add('recording'); };
     }
 
     function saveNote() {
         const text = textArea.value.trim();
+        const deadline = document.getElementById('note-deadline').value;
         if(!text) return;
-        const notes = JSON.parse(localStorage.getItem('liProfil_notes') || "[]");
-        const newNote = {
-            id: Date.now(),
-            date: new Date().toLocaleString('it-IT'),
-            content: text
-        };
-        notes.unshift(newNote); // Mette la più recente in alto
-        localStorage.setItem('liProfil_notes', JSON.stringify(notes));
+        
+        const notes = JSON.parse(localStorage.getItem('liProfil_v3') || "[]");
+        notes.unshift({ 
+            id: Date.now(), 
+            date: new Date().toLocaleString('it-IT'), 
+            content: text, 
+            cat: currentCategory,
+            deadline: deadline ? new Date(deadline).toLocaleString('it-IT', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'}) : null
+        });
+        localStorage.setItem('liProfil_v3', JSON.stringify(notes));
         textArea.value = "";
+        document.getElementById('note-deadline').value = "";
         renderNotes();
     }
 
     function deleteNote(id) {
-        let notes = JSON.parse(localStorage.getItem('liProfil_notes') || "[]");
+        let notes = JSON.parse(localStorage.getItem('liProfil_v3') || "[]");
         notes = notes.filter(n => n.id !== id);
-        localStorage.setItem('liProfil_notes', JSON.stringify(notes));
+        localStorage.setItem('liProfil_v3', JSON.stringify(notes));
         renderNotes();
     }
 
     function renderNotes() {
         const container = document.getElementById('archive-list');
-        const notes = JSON.parse(localStorage.getItem('liProfil_notes') || "[]");
+        let notes = JSON.parse(localStorage.getItem('liProfil_v3') || "[]");
+        if(currentFilter !== "Tutte") notes = notes.filter(n => n.cat === currentFilter);
+        
         container.innerHTML = notes.map(n => `
-            <div class="note-item">
-                <span class="note-date">${n.date}</span>
-                <div>${n.content}</div>
-                <button class="btn-del" onclick="deleteNote(${n.id})"><i class="fa-solid fa-trash"></i></button>
+            <div class="note-item ${n.deadline ? 'has-deadline' : ''}">
+                <div class="note-header">
+                    <span class="note-cat">${n.cat}</span>
+                    ${n.deadline ? `<span class="note-deadline"><i class="fa-regular fa-clock"></i> ${n.deadline}</span>` : ''}
+                </div>
+                <div style="font-size:16px;">${n.content}</div>
+                <button class="btn-del" onclick="deleteNote(${n.id})"><i class="fa-solid fa-trash-can"></i></button>
             </div>
         `).join('');
     }
-
     window.onload = renderNotes;
 </script>
 </body>
