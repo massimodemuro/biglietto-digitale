@@ -2,71 +2,96 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiProfil - Massimo De Muro</title>
-<link rel="apple-touch-icon" href="https://massimodemuro.github.io/biglietto-digitale/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LiProfil</title>
+    <link rel="apple-touch-icon" href="https://massimodemuro.github.io/biglietto-digitale/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --primary: #003366; --bg: #f4f4f9; --white: #ffffff; }
-        body { font-family: sans-serif; margin: 0; background: var(--bg); padding-bottom: 80px; }
-        header { background: var(--white); text-align: center; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        header h1 { margin: 0; color: var(--primary); font-size: 22px; }
+        :root { --primary: #003366; --bg: #f4f4f9; }
+        body { font-family: -apple-system, system-ui, sans-serif; margin: 0; background: var(--bg); padding-bottom: 100px; -webkit-tap-highlight-color: transparent; }
+        header { background: #fff; text-align: center; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .section { display: none; padding: 20px; max-width: 400px; margin: auto; text-align: center; }
-        .active { display: block; }
-        .card { background: var(--white); padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .btn-mic { background: var(--primary); color: white; border: none; padding: 20px; border-radius: 50%; font-size: 24px; margin: 20px 0; }
-        .btn-mic.recording { background: red; }
-        .note-input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; }
-        nav { position: fixed; bottom: 0; width: 100%; background: var(--white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #ddd; }
-        nav button { background: none; border: none; color: #999; font-size: 12px; }
-        nav button.active-nav { color: var(--primary); }
-        nav i { display: block; font-size: 20px; margin-bottom: 3px; }
+        .active { display: block !important; }
+        .card { background: #fff; padding: 30px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); margin-top: 20px; }
+        .btn-mic { background: var(--primary); color: white; border: none; width: 80px; height: 80px; border-radius: 50%; font-size: 30px; margin: 20px 0; cursor: pointer; }
+        .recording { background: #ff3b30; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        .note-input { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #ddd; font-size: 16px; box-sizing: border-box; }
+        nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #ddd; z-index: 1000; }
+        .nav-btn { background: none; border: none; color: #8e8e93; font-size: 12px; display: flex; flex-direction: column; align-items: center; cursor: pointer; width: 50%; }
+        .nav-btn i { font-size: 24px; margin-bottom: 5px; }
+        .nav-btn.active-nav { color: var(--primary); font-weight: bold; }
     </style>
 </head>
 <body>
+
 <header><h1>LiProfil</h1></header>
 
 <div id="biglietto" class="section active">
     <div class="card">
-        <h2>Massimo De Muro</h2>
-        <p>Giornalista & Autore</p>
-        <div style="font-size: 100px; margin: 20px 0;"><i class="fa-solid fa-qrcode"></i></div>
-        <p>Inquadra per il profilo</p>
+        <h2 style="margin:0;">Massimo De Muro</h2>
+        <p style="color:#666;">Giornalista & Autore</p>
+        <div style="font-size: 120px; color: var(--primary); margin: 30px 0;"><i class="fa-solid fa-qrcode"></i></div>
+        <p>Mostra per far inquadrare il profilo</p>
     </div>
 </div>
 
 <div id="organizer" class="section">
-    <h3>Organizer Privato</h3>
+    <h3>Organizer Vocale</h3>
     <button id="start-record" class="btn-mic"><i class="fa-solid fa-microphone"></i></button>
-    <textarea id="note-text" class="note-input" rows="6" placeholder="Parla o scrivi qui..."></textarea>
+    <textarea id="note-text" class="note-input" rows="8" placeholder="Dettami un'idea..."></textarea>
 </div>
 
 <nav>
-    <button onclick="showSection('biglietto')" id="nav-biglietto" class="active-nav"><i class="fa-solid fa-address-card"></i>Profilo</button>
-    <button onclick="showSection('organizer')" id="nav-organizer"><i class="fa-solid fa-book-open"></i>Organizer</button>
+    <div class="nav-btn active-nav" id="btn-biglietto" onclick="switchTab('biglietto')">
+        <i class="fa-solid fa-address-card"></i>Profilo
+    </div>
+    <div class="nav-btn" id="btn-organizer" onclick="switchTab('organizer')">
+        <i class="fa-solid fa-book-open"></i>Organizer
+    </div>
 </nav>
 
 <script>
-    function showSection(id) {
+    function switchTab(sectionId) {
+        // Nascondi sezioni
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active-nav'));
-        document.getElementById(id).classList.add('active');
-        document.getElementById('nav-' + id).classList.add('active-nav');
+        // Rimuovi colore dai tasti
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-nav'));
+        
+        // Mostra sezione scelta
+        document.getElementById(sectionId).classList.add('active');
+        // Colora tasto scelto
+        document.getElementById('btn-' + sectionId).classList.add('active-nav');
     }
+
     const btn = document.getElementById('start-record');
     const textArea = document.getElementById('note-text');
+    
     if ('webkitSpeechRecognition' in window) {
         const recognition = new webkitSpeechRecognition();
         recognition.lang = "it-IT";
-        btn.onclick = () => { recognition.start(); btn.classList.add('recording'); };
-        recognition.onresult = (event) => {
-            textArea.value += event.results[0][0].transcript + ". ";
-            btn.classList.remove('recording');
-            localStorage.setItem('massimo_notes', textArea.value);
+        recognition.continuous = false;
+
+        btn.onclick = () => { 
+            recognition.start(); 
+            btn.classList.add('recording');
         };
+
+        recognition.onresult = (event) => {
+            const text = event.results[0][0].transcript;
+            textArea.value += text + ". ";
+            btn.classList.remove('recording');
+            localStorage.setItem('notes_massimo', textArea.value);
+        };
+
         recognition.onend = () => btn.classList.remove('recording');
+    } else {
+        btn.onclick = () => alert("Il microfono non è supportato su questo browser. Usa Safari o Chrome aggiornati.");
     }
-    window.onload = () => { textArea.value = localStorage.getItem('massimo_notes') || ""; };
+
+    window.onload = () => {
+        textArea.value = localStorage.getItem('notes_massimo') || "";
+    };
 </script>
 </body>
 </html>
