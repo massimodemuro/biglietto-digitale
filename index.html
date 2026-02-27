@@ -3,95 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crea il tuo Biglietto Digitale - Il TrovaLibri</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <title>LiProfil - Massimo De Muro</title>
+<link rel="apple-touch-icon" href="https://massimodemuro.github.io/biglietto-digitale/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --blu-news: #003366; --grigio-testo: #333; }
-        body { font-family: 'Helvetica Neue', Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: var(--grigio-testo); }
-        .container { max-width: 500px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-        
-        header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #f0f0f0; padding-bottom: 20px; }
-        header h1 { color: var(--blu-news); margin: 0; font-size: 1.8rem; }
-        header p { color: #666; font-size: 0.9rem; }
-
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 0.85rem; color: var(--blu-news); }
-        input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 1rem; }
-        
-        .anteprima { background: #fff; border: 2px solid #eee; padding: 20px; border-radius: 12px; margin-top: 30px; text-align: center; }
-        .anteprima h2 { font-size: 1.2rem; margin-top: 0; }
-        #qrcode { display: flex; justify-content: center; margin: 20px 0; }
-        
-        .istruzioni { font-size: 0.8rem; color: #888; margin-top: 15px; line-height: 1.4; }
-        .footer-brand { text-align: center; margin-top: 30px; font-size: 0.7rem; color: #bbb; text-transform: uppercase; letter-spacing: 1px; }
+        :root { --primary: #003366; --bg: #f4f4f9; --white: #ffffff; }
+        body { font-family: sans-serif; margin: 0; background: var(--bg); padding-bottom: 80px; }
+        header { background: var(--white); text-align: center; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        header h1 { margin: 0; color: var(--primary); font-size: 22px; }
+        .section { display: none; padding: 20px; max-width: 400px; margin: auto; text-align: center; }
+        .active { display: block; }
+        .card { background: var(--white); padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .btn-mic { background: var(--primary); color: white; border: none; padding: 20px; border-radius: 50%; font-size: 24px; margin: 20px 0; }
+        .btn-mic.recording { background: red; }
+        .note-input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; }
+        nav { position: fixed; bottom: 0; width: 100%; background: var(--white); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #ddd; }
+        nav button { background: none; border: none; color: #999; font-size: 12px; }
+        nav button.active-nav { color: var(--primary); }
+        nav i { display: block; font-size: 20px; margin-bottom: 3px; }
     </style>
 </head>
 <body>
+<header><h1>LiProfil</h1></header>
 
-<div class="container">
-    <header>
-        <h1>Il Tuo Biglietto Digitale</h1>
-        <p>Servizio gratuito a cura di Massimo De Muro</p>
-    </header>
-
-    <div class="form-group">
-        <label>Nome e Cognome</label>
-        <input type="text" id="nome" placeholder="Es: Mario Rossi" oninput="genera()">
+<div id="biglietto" class="section active">
+    <div class="card">
+        <h2>Massimo De Muro</h2>
+        <p>Giornalista & Autore</p>
+        <div style="font-size: 100px; margin: 20px 0;"><i class="fa-solid fa-qrcode"></i></div>
+        <p>Inquadra per il profilo</p>
     </div>
-
-    <div class="form-group">
-        <label>Professione / Azienda</label>
-        <input type="text" id="info" placeholder="Es: Giornalista / Editore" oninput="genera()">
-    </div>
-
-    <div class="form-group">
-        <label>Telefono</label>
-        <input type="tel" id="tel" placeholder="Es: 333 1234567" oninput="genera()">
-    </div>
-
-    <div class="form-group">
-        <label>Sito Web o Social</label>
-        <input type="url" id="sito" placeholder="Es: www.iltrovalibri.it" oninput="genera()">
-    </div>
-
-    <div class="anteprima">
-        <h2 id="disp-nome">Anteprima Biglietto</h2>
-        <div id="qrcode"></div>
-        <p class="istruzioni">
-            <strong>Come usarlo:</strong> Una volta compilato, fai uno screenshot a questa pagina o aggiungila alla schermata Home del tuo cellulare.
-        </p>
-    </div>
-
-    <div class="footer-brand">Powered by Il TrovaLibri</div>
 </div>
 
+<div id="organizer" class="section">
+    <h3>Organizer Privato</h3>
+    <button id="start-record" class="btn-mic"><i class="fa-solid fa-microphone"></i></button>
+    <textarea id="note-text" class="note-input" rows="6" placeholder="Parla o scrivi qui..."></textarea>
+</div>
+
+<nav>
+    <button onclick="showSection('biglietto')" id="nav-biglietto" class="active-nav"><i class="fa-solid fa-address-card"></i>Profilo</button>
+    <button onclick="showSection('organizer')" id="nav-organizer"><i class="fa-solid fa-book-open"></i>Organizer</button>
+</nav>
+
 <script>
-    function genera() {
-        const nome = document.getElementById('nome').value || "Tuo Nome";
-        const info = document.getElementById('info').value || "Tua Professione";
-        const tel = document.getElementById('tel').value;
-        const sito = document.getElementById('sito').value;
-
-        // Aggiorna titolo anteprima
-        document.getElementById('disp-nome').innerText = nome;
-
-        // Formato vCard universale
-        const vCard = `BEGIN:VCARD\nVERSION:3.0\nFN:${nome}\nORG:${info}\nTEL:${tel}\nURL:${sito}\nEND:VCARD`;
-
-        // Pulisce e rigenera QR
-        const qrContainer = document.getElementById("qrcode");
-        qrContainer.innerHTML = "";
-        new QRCode(qrContainer, {
-            text: vCard,
-            width: 200,
-            height: 200,
-            colorDark : "#003366",
-            colorLight : "#ffffff"
-        });
+    function showSection(id) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active-nav'));
+        document.getElementById(id).classList.add('active');
+        document.getElementById('nav-' + id).classList.add('active-nav');
     }
-    // Generazione iniziale
-    genera();
+    const btn = document.getElementById('start-record');
+    const textArea = document.getElementById('note-text');
+    if ('webkitSpeechRecognition' in window) {
+        const recognition = new webkitSpeechRecognition();
+        recognition.lang = "it-IT";
+        btn.onclick = () => { recognition.start(); btn.classList.add('recording'); };
+        recognition.onresult = (event) => {
+            textArea.value += event.results[0][0].transcript + ". ";
+            btn.classList.remove('recording');
+            localStorage.setItem('massimo_notes', textArea.value);
+        };
+        recognition.onend = () => btn.classList.remove('recording');
+    }
+    window.onload = () => { textArea.value = localStorage.getItem('massimo_notes') || ""; };
 </script>
-
 </body>
 </html>
