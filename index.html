@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LiProfil Pro</title>
+    <title>LiProfil Pro v11.8.2</title>
     <link rel="apple-touch-icon" href="logo.png">
     <link rel="icon" href="logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -25,50 +25,36 @@
         .note-actions { display: flex; gap: 20px; border-top: 1px solid #eee; padding-top: 10px; margin-top: 10px; }
         .wa-btn { color: #25D366; font-size: 22px; background:none; border:none; }
         .mail-btn { color: #ea4335; font-size: 22px; background:none; border:none; }
-        
-        /* Agenda migliorata */
         .agenda-box { background: #fff; padding: 15px; border-radius: 20px; margin-top: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 0 10px; }
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
-        .day { aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; border-radius: 5px; font-size: 12px; cursor: pointer; position: relative; }
+        .day { aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; border-radius: 5px; font-size: 12px; cursor: pointer; position: relative; border: 1px solid transparent; }
         .day.has-note::after { content: ''; width: 4px; height: 4px; background: var(--accent); border-radius: 50%; position: absolute; bottom: 3px; }
-        .day.today { border: 1px solid var(--accent); font-weight: bold; }
+        .day.today { border: 1px solid var(--accent); font-weight: bold; color: var(--accent); }
         .day.selected { background: var(--primary); color: white; }
-
         .settings-item { background: #fff; padding: 15px; border-radius: 12px; margin-bottom: 10px; text-align: left; display: flex; justify-content: space-between; align-items: center; border: 1px solid #eee; cursor: pointer; }
         nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; display: flex; height: 85px; border-top: 1px solid #ddd; z-index: 9999; padding-bottom: env(safe-area-inset-bottom); }
         .nav-btn { background: none; border: none; color: #8e8e93; font-size: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; }
         .nav-btn i { font-size: 20px; margin-bottom: 4px; }
         .nav-btn.active-nav { color: var(--primary); background: #f0f4f8; border-top: 3px solid var(--primary); }
-        .btn-create { display: inline-block; background: #eef2f7; color: var(--primary); padding: 10px 20px; border-radius: 20px; text-decoration: none; font-size: 12px; font-weight: bold; margin-top: 15px; border: 1px solid #d0d7de; }
-
-        /* Overlay Funzioni */
         #funzioni-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 10000; overflow-y: auto; padding: 20px; box-sizing: border-box; }
         .overlay-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-bottom: 20px; }
         .feature-item { margin-bottom: 25px; text-align: left; }
         .feature-item h4 { color: var(--primary); margin: 0 0 8px 0; font-size: 16px; border-bottom: 1px solid #eee; padding-bottom: 3px; }
-        .feature-item ul { padding-left: 20px; margin: 5px 0; }
-        .feature-item li { font-size: 14px; color: #444; margin-bottom: 5px; line-height: 1.3; }
+        .feature-item ul { padding-left: 20px; margin: 5px 0; list-style-type: none; }
+        .feature-item li { font-size: 14px; color: #444; margin-bottom: 8px; line-height: 1.4; position: relative; }
+        .feature-item li::before { content: "•"; color: var(--accent); font-weight: bold; display: inline-block; width: 1em; margin-left: -1em; }
     </style>
 </head>
 <body>
 
-<header>
-    <img src="logo.png" alt="L">
-    <h2>LiProfil Pro</h2>
-</header>
+<header><img src="logo.png" alt="L"><h2>LiProfil Pro</h2></header>
 
 <div id="biglietto" class="section active">
     <div class="card">
-        <h3>Massimo De Muro</h3>
-        <p>Giornalista & Autore</p>
-        <div style="margin: 20px 0;">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=BEGIN:VCARD%0AVERSION:3.0%0AN:De Muro;Massimo;;;%0AFN:Massimo De Muro%0AEND:VCARD" alt="QR" style="border-radius:12px;">
-            <p style="font-size:12px; color: var(--primary); font-weight:bold; margin-top: 10px;">Inquadra per la rubrica</p>
-        </div>
-        <a href="https://github.com/massimodemuro/biglietto-digitale" target="_blank" class="btn-create">
-            <i class="fa-solid fa-wand-magic-sparkles"></i> Crea il tuo LiProfil
-        </a>
+        <h3>Massimo De Muro</h3><p>Giornalista & Autore</p>
+        <div style="margin: 20px 0;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=BEGIN:VCARD%0AVERSION:3.0%0AN:De Muro;Massimo;;;%0AFN:Massimo De Muro%0AEND:VCARD" alt="QR" style="border-radius:12px;"><p style="font-size:12px; color: var(--primary); font-weight:bold; margin-top: 10px;">Inquadra per la rubrica</p></div>
+        <a href="https://github.com/massimodemuro/biglietto-digitale" target="_blank" style="display: inline-block; background: #eef2f7; color: var(--primary); padding: 10px 20px; border-radius: 20px; text-decoration: none; font-size: 12px; font-weight: bold; border: 1px solid #d0d7de;"><i class="fa-solid fa-wand-magic-sparkles"></i> Crea il tuo LiProfil</a>
     </div>
 </div>
 
@@ -76,9 +62,7 @@
     <div class="card" style="border: 2px solid var(--danger);">
         <h3 style="color: var(--danger);"><i class="fa-solid fa-car"></i> Modalità Guida</h3>
         <p style="font-size: 13px;">Dì <b>"WhatsApp"</b> o <b>"Email"</b> per inviare l'ultima nota.</p>
-        <button id="guide-toggle" class="btn-mic" onclick="toggleGuideMode()" style="width: 100px; height: 100px; font-size: 40px;">
-            <i class="fa-solid fa-microphone"></i>
-        </button>
+        <button id="guide-toggle" class="btn-mic" onclick="toggleGuideMode()" style="width: 100px; height: 100px; font-size: 40px;"><i class="fa-solid fa-microphone"></i></button>
         <p id="guide-status" style="font-weight: bold; margin-top: 10px; color: var(--primary);">OFF</p>
     </div>
 </div>
@@ -91,9 +75,9 @@
     </div>
     <div class="agenda-box">
         <div class="cal-nav">
-            <button onclick="changeMonth(-1)" style="border:none; background:none; color:var(--primary);"><i class="fa-solid fa-chevron-left"></i></button>
+            <button onclick="changeMonth(-1)" style="border:none; background:none; color:var(--primary); font-size:20px;"><i class="fa-solid fa-chevron-left"></i></button>
             <h4 id="month-name" style="margin:0; color: var(--primary);"></h4>
-            <button onclick="changeMonth(1)" style="border:none; background:none; color:var(--primary);"><i class="fa-solid fa-chevron-right"></i></button>
+            <button onclick="changeMonth(1)" style="border:none; background:none; color:var(--primary); font-size:20px;"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
         <div id="calendar-grid" class="calendar-grid"></div>
         <div id="day-notes-list" style="margin-top:15px;"></div>
@@ -102,60 +86,18 @@
 
 <div id="assistenza" class="section">
     <h4 style="color: var(--primary); margin-left: 10px;"><i class="fa-solid fa-sliders"></i> Impostazioni</h4>
-    <div class="settings-item" onclick="toggleFeatures(true)">
-        <span><i class="fa-solid fa-list-check"></i> Funzionalità</span>
-        <i class="fa-solid fa-chevron-right" style="color:#ccc;"></i>
-    </div>
-    <div class="settings-item" onclick="exportNotes()">
-        <span><i class="fa-solid fa-file-export"></i> Esporta Archivio</span>
-        <span style="font-size:11px; background:var(--primary); color:white; padding:4px 8px; border-radius:5px;">COPIA</span>
-    </div>
-    <div class="card" style="margin-top:20px; text-align:left; font-size:12px; color:#555;">
-        <strong>Sistema:</strong> LiProfil v11.8<br>
-        <strong>User:</strong> Massimo De Muro<br>
-        <strong>Nave:</strong> Santa Maria
-    </div>
+    <div class="settings-item" onclick="toggleFeatures(true)"><span><i class="fa-solid fa-list-check"></i> Funzionalità</span><i class="fa-solid fa-chevron-right" style="color:#ccc;"></i></div>
+    <div class="settings-item" onclick="exportNotes()"><span><i class="fa-solid fa-file-export"></i> Esporta Archivio</span><span style="font-size:11px; background:var(--primary); color:white; padding:4px 8px; border-radius:5px;">COPIA</span></div>
+    <div class="card" style="margin-top:20px; text-align:left; font-size:12px; color:#555;"><strong>Sistema:</strong> LiProfil v11.8.2<br><strong>Nave:</strong> Santa Maria</div>
 </div>
 
 <div id="funzioni-overlay">
-    <div class="overlay-header">
-        <h3 style="margin:0; color:var(--primary);">Funzionalità LiProfil</h3>
-        <button onclick="toggleFeatures(false)" style="background:none; border:none; font-size:24px; color:var(--danger);">&times;</button>
-    </div>
-    
-    <div class="feature-item">
-        <h4>1. Biglietto da Visita Digitale (Profilo)</h4>
-        <ul>
-            <li><strong>QR Code Dinamico:</strong> Permetti a chiunque di salvarti in rubrica istantaneamente inquadrando lo schermo.</li>
-            <li><strong>Viralità Integrata:</strong> Il tasto "Crea il tuo LiProfil" permette ai tuoi contatti di scaricare la tua stessa tecnologia.</li>
-            <li><strong>Identity Branding:</strong> Logo personalizzato e icone coordinate per un impatto professionale immediato.</li>
-        </ul>
-    </div>
-    <div class="feature-item">
-        <h4>2. Ufficio Mobile (Modalità Guida)</h4>
-        <ul>
-            <li><strong>Dettatura Hands-Free:</strong> L'app ascolta, trascrive e salva i tuoi pensieri senza toccare il telefono.</li>
-            <li><strong>Comandi Vocali:</strong> Dì "WhatsApp" o "Email" per inviare immediatamente la nota appena presa.</li>
-            <li><strong>Sintesi Vocale:</strong> L'app ti risponde per confermare il salvataggio.</li>
-        </ul>
-    </div>
-    <div class="feature-item">
-        <h4>3. Organizer & Agenda Storica</h4>
-        <ul>
-            <li><strong>Input Rapido:</strong> Area di testo per appunti veloci con microfono manuale.</li>
-            <li><strong>Archivio Cronologico:</strong> Calendario dinamico che evidenzia i giorni con appunti presi.</li>
-            <li><strong>Ricerca Storica:</strong> Clicca su un giorno nel calendario per recuperare istantaneamente le note di quella data.</li>
-        </ul>
-    </div>
-    <div class="feature-item">
-        <h4>4. Gestione Dati & Privacy</h4>
-        <ul>
-            <li><strong>Privacy Bunker:</strong> Dati salvati esclusivamente nella memoria locale del tuo smartphone.</li>
-            <li><strong>Backup & Esportazione:</strong> Copia l'intero archivio per report finali dalla sezione Assistenza.</li>
-            <li><strong>Multi-Canale:</strong> Ogni nota può essere condivisa via WhatsApp o Email con un tocco.</li>
-        </ul>
-    </div>
-    <button onclick="toggleFeatures(false)" class="btn-save" style="background:var(--primary);">Chiudi Manuale</button>
+    <div class="overlay-header"><h3 style="margin:0; color:var(--primary);">Funzionalità</h3><button onclick="toggleFeatures(false)" style="background:none; border:none; font-size:24px; color:var(--danger);">&times;</button></div>
+    <div class="feature-item"><h4>1. Biglietto da Visita Digitale (Profilo)</h4><ul><li><strong>QR Code Dinamico:</strong> Permetti a chiunque di salvarti in rubrica istantaneamente inquadrando lo schermo.</li><li><strong>Viralità Integrata:</strong> Il tasto "Crea il tuo LiProfil" permette ai tuoi contatti di scaricare la tua stessa tecnologia.</li><li><strong>Identity Branding:</strong> Logo personalizzato e icone coordinate per un impatto professionale immediato.</li></ul></div>
+    <div class="feature-item"><h4>2. Ufficio Mobile (Modalità Guida)</h4><ul><li><strong>Dettatura Hands-Free:</strong> Progettata per chi viaggia. L'app ascolta, trascrive e salva i tuoi pensieri senza toccare il telefono.</li><li><strong>Comandi Vocali "Post-Salvataggio":</strong> Dopo aver dettato, basta dire "WhatsApp" o "Email" per inviare immediatamente la nota.</li><li><strong>Sintesi Vocale:</strong> L'app ti risponde per confermare il salvataggio.</li></ul></div>
+    <div class="feature-item"><h4>3. Organizer & Agenda Storica</h4><ul><li><strong>Input Rapido:</strong> Area di testo per appunti veloci con supporto per il microfono manuale.</li><li><strong>Archivio Cronologico:</strong> Calendario integrato che evidenzia con un punto blu i giorni in cui hai preso appunti.</li><li><strong>Ricerca Storica:</strong> Clicca su un giorno qualsiasi nel calendario per recuperare istantaneamente le note.</li></ul></div>
+    <div class="feature-item"><h4>4. Gestione Dati & Privacy</h4><ul><li><strong>Privacy Bunker:</strong> Tutti i dati sono salvati esclusivamente nella memoria locale del tuo smartphone.</li><li><strong>Backup & Esportazione:</strong> Copia con un tasto l'intero archivio per i tuoi report dalla sezione Assistenza.</li><li><strong>Multi-Canale:</strong> Ogni nota salvata può essere condivisa via WhatsApp o Email con un solo tocco.</li></ul></div>
+    <button onclick="toggleFeatures(false)" class="btn-save" style="background:var(--primary);">Chiudi</button>
 </div>
 
 <nav>
@@ -167,7 +109,7 @@
 
 <script>
     let isGuideMode = false;
-    let vDate = new Date(); // Data per la navigazione del calendario
+    let vDate = new Date();
     const DB_NAME = 'liProfil_v11';
     const recognition = new (window.webkitSpeechRecognition || window.SpeechRecognition)();
     recognition.lang = 'it-IT';
@@ -178,45 +120,36 @@
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-nav'));
         document.getElementById(id).classList.add('active');
         document.getElementById('btn-' + id).classList.add('active-nav');
+        if(id === 'organizer') renderCalendar();
     }
-
-    function toggleFeatures(show) {
-        document.getElementById('funzioni-overlay').style.display = show ? 'block' : 'none';
-    }
-
-    // LOGICA CALENDARIO DINAMICO
-    function changeMonth(dir) {
-        vDate.setMonth(vDate.getMonth() + dir);
-        renderCalendar();
-    }
+    function toggleFeatures(show) { document.getElementById('funzioni-overlay').style.display = show ? 'block' : 'none'; }
+    function changeMonth(dir) { vDate.setMonth(vDate.getMonth() + dir); renderCalendar(); }
 
     function renderCalendar() {
         const grid = document.getElementById('calendar-grid');
         const monthLabel = document.getElementById('month-name');
         if(!grid) return;
-        
         const year = vDate.getFullYear();
         const month = vDate.getMonth();
         const today = new Date();
         const notes = JSON.parse(localStorage.getItem(DB_NAME) || "[]");
-        
         monthLabel.innerText = new Intl.DateTimeFormat('it-IT', { month: 'long', year: 'numeric' }).format(vDate);
         grid.innerHTML = "";
-        
+        const firstDay = new Date(year, month, 1).getDay();
+        const emptyDays = firstDay === 0 ? 6 : firstDay - 1;
+        for(let e=0; e<emptyDays; e++) grid.innerHTML += '<div></div>';
         const daysInMonth = new Date(year, month + 1, 0).getDate();
-        
         for (let d = 1; d <= daysInMonth; d++) {
             const dStr = `${year}-${String(month+1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
             const hasNote = notes.some(n => n.date === dStr);
             const isToday = today.getFullYear() === year && today.getMonth() === month && today.getDate() === d;
-            
-            grid.innerHTML += `<div class="day ${hasNote ? 'has-note' : ''} ${isToday ? 'today' : ''}" onclick="showDayNotes('${dStr}')">${d}</div>`;
+            grid.innerHTML += `<div class="day ${hasNote ? 'has-note' : ''} ${isToday ? 'today' : ''}" onclick="showDayNotes('${dStr}', this)">${d}</div>`;
         }
     }
 
-    function showDayNotes(date) {
-        // Rimuove selezione precedente e aggiunge la nuova
+    function showDayNotes(date, el) {
         document.querySelectorAll('.day').forEach(d => d.classList.remove('selected'));
+        if(el) el.classList.add('selected');
         const notes = JSON.parse(localStorage.getItem(DB_NAME) || "[]").filter(n => n.date === date);
         document.getElementById('day-notes-list').innerHTML = notes.map(n => `
             <div class="note-card">
@@ -226,7 +159,7 @@
                     <button class="mail-btn" onclick="shareMail('${n.content}')"><i class="fa-solid fa-envelope"></i></button>
                 </div>
             </div>
-        `).join('') || "<p style='font-size:12px; color:#999; text-align:center;'>Nessuna nota per questo giorno.</p>";
+        `).join('') || "<p style='font-size:12px; color:#999; text-align:center;'>Nessun appunto.</p>";
     }
 
     function saveNote(text) {
@@ -241,9 +174,7 @@
 
     function saveNoteFromInput() {
         const input = document.getElementById('note-text');
-        saveNote(input.value);
-        input.value = "";
-        alert("Salvato in Agenda!");
+        saveNote(input.value); input.value = "";
     }
 
     function shareWA(text) { window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank'); }
@@ -253,11 +184,8 @@
         isGuideMode = !isGuideMode;
         const btn = document.getElementById('guide-toggle');
         const status = document.getElementById('guide-status');
-        if(isGuideMode) {
-            btn.classList.add('recording'); status.innerText = "ON"; recognition.start();
-        } else {
-            btn.classList.remove('recording'); status.innerText = "OFF"; recognition.stop();
-        }
+        if(isGuideMode) { btn.classList.add('recording'); status.innerText = "ON"; recognition.start(); } 
+        else { btn.classList.remove('recording'); status.innerText = "OFF"; recognition.stop(); }
     }
 
     function startManualMic() {
@@ -274,27 +202,24 @@
         const transcript = e.results[0][0].transcript.toLowerCase();
         if(isGuideMode) {
             if(transcript.includes("whatsapp")) {
-                const last = JSON.parse(localStorage.getItem(DB_NAME) || "[]")[0];
-                if(last) shareWA(last.content);
+                const notes = JSON.parse(localStorage.getItem(DB_NAME) || "[]");
+                if(notes[0]) shareWA(notes[0].content);
             } else if(transcript.includes("email")) {
-                const last = JSON.parse(localStorage.getItem(DB_NAME) || "[]")[0];
-                if(last) shareMail(last.content);
+                const notes = JSON.parse(localStorage.getItem(DB_NAME) || "[]");
+                if(notes[0]) shareMail(notes[0].content);
             } else {
                 saveNote(transcript);
                 window.speechSynthesis.speak(new SpeechSynthesisUtterance("Salvato. WhatsApp o Email?"));
             }
         }
     };
-
     recognition.onend = () => { if(isGuideMode) recognition.start(); };
-
     function exportNotes() {
         const notes = JSON.parse(localStorage.getItem(DB_NAME) || "[]");
-        let report = "LIPROFIL REPORT - MASSIMO DE MURO\n\n";
+        let report = "LIPROFIL REPORT\n\n";
         notes.forEach(n => { report += `${n.date}: ${n.content}\n\n`; });
-        navigator.clipboard.writeText(report).then(() => alert("Intero archivio copiato!"));
+        navigator.clipboard.writeText(report).then(() => alert("Copiato!"));
     }
-
     window.onload = () => { renderCalendar(); };
 </script>
 </body>
