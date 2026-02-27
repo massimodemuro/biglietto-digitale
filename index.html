@@ -8,27 +8,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --primary: #003366; --bg: #f4f4f9; --accent: #007aff; }
-        body { font-family: -apple-system, system-ui, sans-serif; margin: 0; background: var(--bg); padding-bottom: 100px; -webkit-tap-highlight-color: transparent; }
-        header { background: #fff; text-align: center; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        body { font-family: -apple-system, system-ui, sans-serif; margin: 0; background: var(--bg); padding-bottom: 120px; -webkit-tap-highlight-color: transparent; }
+        header { background: #fff; text-align: center; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .section { display: none; padding: 20px; max-width: 400px; margin: auto; text-align: center; }
         .active { display: block !important; }
-        .card { background: #fff; padding: 20px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); margin-top: 10px; }
-        .btn-mic { background: var(--primary); color: white; border: none; width: 70px; height: 70px; border-radius: 50%; font-size: 25px; margin: 10px 0; cursor: pointer; transition: 0.3s; }
-        .recording { background: #ff3b30; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-        .note-input { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #ddd; font-size: 16px; box-sizing: border-box; background: #fff; }
-        .btn-save { background: var(--accent); color: white; border: none; padding: 12px 25px; border-radius: 10px; margin-top: 10px; font-weight: bold; width: 100%; }
-        .archive { text-align: left; margin-top: 30px; }
-        .note-item { background: #fff; padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 5px solid var(--primary); position: relative; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .note-date { font-size: 10px; color: #888; display: block; margin-bottom: 5px; }
-        .btn-del { position: absolute; top: 10px; right: 10px; color: #ff3b30; border: none; background: none; font-size: 14px; }
-        nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #ddd; z-index: 1000; }
-        .nav-btn { background: none; border: none; color: #8e8e93; font-size: 12px; display: flex; flex-direction: column; align-items: center; cursor: pointer; width: 50%; }
-        .nav-btn i { font-size: 24px; margin-bottom: 5px; }
-        .nav-btn.active-nav { color: var(--primary); font-weight: bold; }
+        .card { background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); margin-top: 10px; }
+        
+        /* Area Microfono e Input */
+        .btn-mic { background: var(--primary); color: white; border: none; width: 85px; height: 85px; border-radius: 50%; font-size: 30px; margin: 15px 0; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .recording { background: #ff3b30; transform: scale(1.1); }
+        .note-input { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #ddd; font-size: 18px; box-sizing: border-box; background: #fff; margin-bottom: 10px; }
+        .btn-save { background: var(--accent); color: white; border: none; padding: 18px; border-radius: 12px; font-weight: bold; width: 100%; font-size: 16px; margin-bottom: 20px; }
+
+        /* NAVIGAZIONE MIGLIORATA */
+        nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; height: 85px; border-top: 1px solid #ddd; z-index: 1000; padding-bottom: env(safe-area-inset-bottom); }
+        .nav-btn { background: none; border: none; color: #8e8e93; font-size: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; width: 50%; height: 100%; transition: all 0.2s; }
+        .nav-btn i { font-size: 28px; margin-bottom: 4px; }
+        .nav-btn.active-nav { color: var(--primary); background: #f0f7ff; border-top: 3px solid var(--primary); }
     </style>
-</head>
-<body>
 
 <header><h1>LiProfil</h1></header>
 
