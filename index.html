@@ -7,43 +7,38 @@
     <link rel="apple-touch-icon" href="https://massimodemuro.github.io/biglietto-digitale/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --primary: #003366; --bg: #f4f4f9; --accent: #007aff; }
-        body { font-family: -apple-system, system-ui, sans-serif; margin: 0; background: var(--bg); padding-bottom: 110px; -webkit-tap-highlight-color: transparent; }
+        :root { --primary: #003366; --bg: #f4f4f9; --accent: #007aff; --text: #333; }
+        body { font-family: -apple-system, system-ui, sans-serif; margin: 0; background: var(--bg); padding-bottom: 110px; color: var(--text); -webkit-tap-highlight-color: transparent; }
         header { background: #fff; text-align: center; padding: 15px; border-bottom: 1px solid #eee; }
-        .section { display: none; padding: 15px; max-width: 400px; margin: auto; text-align: center; }
+        .section { display: none; padding: 15px; max-width: 400px; margin: auto; }
         .active { display: block !important; }
+        .card { background: #fff; padding: 20px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); text-align: center; }
         
-        /* Formattazione Organizer */
+        /* Organizer */
         .note-input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; font-size: 16px; box-sizing: border-box; margin-bottom: 10px; }
         .btn-mic { background: var(--primary); color: white; border: none; width: 70px; height: 70px; border-radius: 50%; font-size: 25px; margin: 10px 0; }
         .recording { background: #ff3b30; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity:1; } 50% { opacity:0.5; } 100% { opacity:1; } }
         .btn-save { background: var(--accent); color: white; border: none; padding: 15px; border-radius: 12px; width: 100%; font-weight: bold; }
 
-        /* Calendario Griglia */
-        .calendar-container { background: #fff; border-radius: 15px; padding: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        /* Calendario */
+        .calendar-container { background: #fff; border-radius: 15px; padding: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; }
         .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-weight: bold; }
         .nav-month { background: #f0f0f0; border: none; width: 30px; height: 30px; border-radius: 50%; }
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
-        .day-name { font-size: 9px; color: #888; padding-bottom: 5px; }
-        .day { aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; border-radius: 5px; font-size: 14px; position: relative; }
+        .day { aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; border-radius: 5px; font-size: 14px; position: relative; cursor: pointer; }
         .day.has-note::after { content: ''; width: 4px; height: 4px; background: var(--accent); border-radius: 50%; position: absolute; bottom: 2px; }
         .day.selected { background: var(--primary); color: white; }
 
-        /* NAVIGAZIONE FISSA A 3 TASTI */
-        nav { 
-            position: fixed; bottom: 0; left: 0; right: 0;
-            width: 100%; background: #fff; display: flex; 
-            height: 90px; border-top: 1px solid #ddd; z-index: 9999;
-            padding-bottom: env(safe-area-inset-bottom);
-        }
-        .nav-btn { 
-            background: none; border: none; color: #8e8e93; 
-            font-size: 10px; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; 
-            flex: 1; height: 100%; 
-        }
-        .nav-btn i { font-size: 20px; margin-bottom: 4px; }
+        /* Assistenza */
+        .help-list { text-align: left; }
+        .help-item { background: #fff; padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 4px solid var(--accent); }
+        .help-item i { color: var(--primary); margin-right: 10px; }
+
+        /* NAVIGAZIONE FISSA A 4 TASTI */
+        nav { position: fixed; bottom: 0; left: 0; right: 0; width: 100%; background: #fff; display: flex; height: 85px; border-top: 1px solid #ddd; z-index: 9999; padding-bottom: env(safe-area-inset-bottom); }
+        .nav-btn { background: none; border: none; color: #8e8e93; font-size: 9px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; height: 100%; }
+        .nav-btn i { font-size: 18px; margin-bottom: 4px; }
         .nav-btn.active-nav { color: var(--primary); background: #f8faff; border-top: 3px solid var(--primary); }
     </style>
 </head>
@@ -52,18 +47,25 @@
 <header><h2>LiProfil</h2></header>
 
 <div id="biglietto" class="section active">
-    <div style="background:#fff; padding:20px; border-radius:20px; box-shadow:0 10px 20px rgba(0,0,0,0.1);">
-        <h3>Massimo De Muro</h3>
-        <div style="font-size: 70px; color: var(--primary); margin: 15px 0;"><i class="fa-solid fa-qrcode"></i></div>
-        <p>Profilo Digitale</p>
+    <div class="card">
+        <h3 style="margin:0;">Massimo De Muro</h3>
+        <p style="color:#666; margin-top:5px;">Giornalista & Autore</p>
+        <div style="margin: 20px 0;">
+            <a href="https://massimodemuro.github.io/biglietto-digitale/" target="_blank">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://massimodemuro.github.io/biglietto-digitale/" alt="QR Code" style="border: 10px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            </a>
+        </div>
+        <p style="font-size: 12px;">Inquadra per salvare il contatto</p>
     </div>
 </div>
 
 <div id="organizer" class="section">
-    <textarea id="note-text" class="note-input" rows="3" placeholder="Scrivi o detta..."></textarea>
+    <textarea id="note-text" class="note-input" rows="3" placeholder="Dettami un'idea..."></textarea>
     <input type="date" id="note-date" class="note-input">
-    <button id="start-record" class="btn-mic"><i class="fa-solid fa-microphone"></i></button>
-    <button onclick="saveNote()" class="btn-save">Salva Appunto</button>
+    <div style="text-align:center;">
+        <button id="start-record" class="btn-mic"><i class="fa-solid fa-microphone"></i></button>
+    </div>
+    <button onclick="saveNote()" class="btn-save">Salva nell'Organizer</button>
 </div>
 
 <div id="calendario-sez" class="section">
@@ -78,6 +80,16 @@
     <div id="day-notes-list" style="margin-top:15px;"></div>
 </div>
 
+<div id="assistenza" class="section">
+    <h3 style="text-align:center;">Guida LiProfil</h3>
+    <div class="help-list">
+        <div class="help-item"><i class="fa-solid fa-id-card"></i><strong>Profilo:</strong> Mostra il tuo QR Code per condividere istantaneamente la tua identità professionale.</div>
+        <div class="help-item"><i class="fa-solid fa-microphone"></i><strong>Organizer:</strong> Detto vocale con intelligenza artificiale. Scrivi le tue idee senza usare le mani.</div>
+        <div class="help-item"><i class="fa-solid fa-calendar-check"></i><strong>Calendario:</strong> Visualizzazione mensile degli impegni. I giorni con note sono segnati da un punto blu.</div>
+        <div class="help-item"><i class="fa-solid fa-user-shield"></i><strong>Privacy:</strong> Nessun dato esce da questo telefono. Tutto è salvato localmente per la tua massima sicurezza.</div>
+    </div>
+</div>
+
 <nav>
     <button class="nav-btn active-nav" id="btn-biglietto" onclick="switchTab('biglietto')">
         <i class="fa-solid fa-id-card"></i>Profilo
@@ -87,6 +99,9 @@
     </button>
     <button class="nav-btn" id="btn-calendario-sez" onclick="switchTab('calendario-sez'); renderCalendar();">
         <i class="fa-solid fa-calendar-alt"></i>Calendario
+    </button>
+    <button class="nav-btn" id="btn-assistenza" onclick="switchTab('assistenza')">
+        <i class="fa-solid fa-circle-info"></i>Assistenza
     </button>
 </nav>
 
@@ -105,9 +120,9 @@
         const text = document.getElementById('note-text').value;
         const date = document.getElementById('note-date').value || new Date().toISOString().split('T')[0];
         if(!text) return;
-        const notes = JSON.parse(localStorage.getItem('liProfil_v4') || "[]");
+        const notes = JSON.parse(localStorage.getItem('liProfil_v6') || "[]");
         notes.unshift({ id: Date.now(), date: date, content: text });
-        localStorage.setItem('liProfil_v4', JSON.stringify(notes));
+        localStorage.setItem('liProfil_v6', JSON.stringify(notes));
         document.getElementById('note-text').value = "";
         alert("Salvato!");
     }
@@ -121,13 +136,13 @@
         const month = vDate.getMonth();
         const firstDay = new Date(year, month, 1).getDay();
         const daysInMonth = new Date(year, month + 1, 0).getDate();
-        const notes = JSON.parse(localStorage.getItem('liProfil_v4') || "[]");
+        const notes = JSON.parse(localStorage.getItem('liProfil_v6') || "[]");
         
         const monthNames = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
         monthLabel.innerText = `${monthNames[month]} ${year}`;
 
         grid.innerHTML = "";
-        ["L","M","M","G","V","S","D"].forEach(d => grid.innerHTML += `<div class="day-name">${d}</div>`);
+        ["L","M","M","G","V","S","D"].forEach(d => grid.innerHTML += `<div style='font-size:9px; color:#888;'>${d}</div>`);
         let start = firstDay === 0 ? 6 : firstDay - 1;
         for (let i = 0; i < start; i++) grid.innerHTML += `<div></div>`;
 
@@ -140,8 +155,8 @@
 
     function showNotes(date) {
         sDateStr = date; renderCalendar();
-        const notes = JSON.parse(localStorage.getItem('liProfil_v4') || "[]").filter(n => n.date === date);
-        document.getElementById('day-notes-list').innerHTML = notes.length ? notes.map(n => `<div style="background:#fff; padding:10px; border-radius:8px; margin-bottom:5px; text-align:left; border-left:4px solid var(--primary);">${n.content}</div>`).join('') : "Nessuna nota.";
+        const notes = JSON.parse(localStorage.getItem('liProfil_v6') || "[]").filter(n => n.date === date);
+        document.getElementById('day-notes-list').innerHTML = notes.length ? notes.map(n => `<div style="background:#fff; padding:10px; border-radius:8px; margin-bottom:5px; border-left:4px solid var(--primary); text-align:left;">${n.content}</div>`).join('') : "Nessuna nota.";
     }
 
     // Microfono
