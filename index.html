@@ -63,23 +63,37 @@
     </div>
 </div>
 
-<div id="organizer" class="section">
-    <textarea id="note-text" class="note-input" rows="3" placeholder="Dettami un'idea..."></textarea>
-    <input type="date" id="note-date" class="note-input">
-    <div style="text-align:center;"><button id="start-record" class="btn-mic"><i class="fa-solid fa-microphone"></i></button></div>
-    <button onclick="saveNote()" class="btn-save">Salva Appunto</button>
-</div>
-
-<div id="calendario-sez" class="section">
-    <div class="calendar-container">
-        <div class="calendar-header">
-            <button onclick="changeMonth(-1)" style="border:none; background:#eee; border-radius:50%; width:30px; height:30px;"><</button>
-            <span id="month-name">Mese</span>
-            <button onclick="changeMonth(1)" style="border:none; background:#eee; border-radius:50%; width:30px; height:30px;">></button>
-        </div>
-        <div class="calendar-grid" id="calendar-grid"></div>
+<div id="assistenza" class="section">
+    <h3 style="text-align:center; color: var(--primary);">Guida Professionale LiProfil</h3>
+    
+    <div class="help-item">
+        <i class="fa-solid fa-id-card"></i><strong>Profilo Digitale Dinamico</strong>
+        <p style="font-size: 12px; margin: 5px 0 0 0;">Il QR Code genera un link istantaneo alla tua identità online. Mostralo durante eventi o interviste per eliminare il biglietto da visita cartaceo.</p>
     </div>
-    <div id="day-notes-list" style="margin-top:15px;"></div>
+
+    <div class="help-item">
+        <i class="fa-solid fa-microphone-lines"></i><strong>Dettatura Intelligente</strong>
+        <p style="font-size: 12px; margin: 5px 0 0 0;">Usa il tasto microfono nell'Organizer per trascrivere i tuoi pensieri. Il sistema riconosce la punteggiatura naturale e permette di catturare idee "on the road".</p>
+    </div>
+
+    <div class="help-item">
+        <i class="fa-solid fa-calendar-day"></i><strong>Agenda Retroattiva e Futura</strong>
+        <p style="font-size: 12px; margin: 5px 0 0 0;">Puoi inserire note per date passate (archiviazione) o future (scadenze). Il puntino blu sul calendario indica la presenza di dati salvati.</p>
+    </div>
+
+    <div class="help-item">
+        <i class="fa-solid fa-database"></i><strong>Gestione Memoria Locale</strong>
+        <p style="font-size: 12px; margin: 5px 0 0 0;">LiProfil utilizza la tecnologia 'LocalStorage'. I tuoi dati non transitano su server esterni, garantendo una riservatezza totale per i tuoi scoop o progetti editoriali.</p>
+    </div>
+
+    <div class="help-item">
+        <i class="fa-solid fa-mobile-screen"></i><strong>Installazione come Web App</strong>
+        <p style="font-size: 12px; margin: 5px 0 0 0;">Per un'esperienza ottimale, usa il tasto 'Condividi' di Safari e seleziona 'Aggiungi alla schermata Home'. LiProfil diventerà un'app a tutto schermo.</p>
+    </div>
+
+    <div style="text-align:center; padding: 20px; font-size: 11px; color: #888;">
+        <p>Sviluppato per Massimo De Muro<br>Versione Pro 2026.02</p>
+    </div>
 </div>
 
 <div id="assistenza" class="section">
