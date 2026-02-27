@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LiProfil Pro v11.8.2</title>
+    <title>LiProfil Pro</title>
     <link rel="apple-touch-icon" href="logo.png">
     <link rel="icon" href="logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -26,9 +26,9 @@
         .wa-btn { color: #25D366; font-size: 22px; background:none; border:none; }
         .mail-btn { color: #ea4335; font-size: 22px; background:none; border:none; }
         .agenda-box { background: #fff; padding: 15px; border-radius: 20px; margin-top: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 0 10px; }
+        .cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 0 5px; }
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
-        .day { aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; border-radius: 5px; font-size: 12px; cursor: pointer; position: relative; border: 1px solid transparent; }
+        .day { aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; border-radius: 5px; font-size: 12px; cursor: pointer; position: relative; }
         .day.has-note::after { content: ''; width: 4px; height: 4px; background: var(--accent); border-radius: 50%; position: absolute; bottom: 3px; }
         .day.today { border: 1px solid var(--accent); font-weight: bold; color: var(--accent); }
         .day.selected { background: var(--primary); color: white; }
@@ -61,7 +61,7 @@
 <div id="guida-sez" class="section">
     <div class="card" style="border: 2px solid var(--danger);">
         <h3 style="color: var(--danger);"><i class="fa-solid fa-car"></i> Modalità Guida</h3>
-        <p style="font-size: 13px;">Dì <b>"WhatsApp"</b> o <b>"Email"</b> per inviare l'ultima nota.</p>
+        <p style="font-size: 13px;">Dì <b>"WhatsApp"</b> o <b>"Email"</b> dopo aver salvato.</p>
         <button id="guide-toggle" class="btn-mic" onclick="toggleGuideMode()" style="width: 100px; height: 100px; font-size: 40px;"><i class="fa-solid fa-microphone"></i></button>
         <p id="guide-status" style="font-weight: bold; margin-top: 10px; color: var(--primary);">OFF</p>
     </div>
@@ -69,15 +69,15 @@
 
 <div id="organizer" class="section">
     <div class="card" style="padding: 15px;">
-        <textarea id="note-text" class="note-input" rows="3" placeholder="Nuova idea..."></textarea>
+        <textarea id="note-text" class="note-input" rows="3" placeholder="Scrivi un appunto..."></textarea>
         <button id="manual-mic" class="btn-mic" onclick="startManualMic()" style="width: 50px; height: 50px; font-size: 18px;"><i class="fa-solid fa-microphone"></i></button>
         <button onclick="saveNoteFromInput()" class="btn-save">Salva Nota</button>
     </div>
     <div class="agenda-box">
         <div class="cal-nav">
-            <button onclick="changeMonth(-1)" style="border:none; background:none; color:var(--primary); font-size:20px;"><i class="fa-solid fa-chevron-left"></i></button>
-            <h4 id="month-name" style="margin:0; color: var(--primary);"></h4>
-            <button onclick="changeMonth(1)" style="border:none; background:none; color:var(--primary); font-size:20px;"><i class="fa-solid fa-chevron-right"></i></button>
+            <button onclick="changeMonth(-1)" style="border:none; background:none; color:var(--primary); font-size:22px;"><i class="fa-solid fa-circle-chevron-left"></i></button>
+            <h4 id="month-name" style="margin:0; color: var(--primary); text-transform: capitalize;"></h4>
+            <button onclick="changeMonth(1)" style="border:none; background:none; color:var(--primary); font-size:22px;"><i class="fa-solid fa-circle-chevron-right"></i></button>
         </div>
         <div id="calendar-grid" class="calendar-grid"></div>
         <div id="day-notes-list" style="margin-top:15px;"></div>
@@ -93,10 +93,10 @@
 
 <div id="funzioni-overlay">
     <div class="overlay-header"><h3 style="margin:0; color:var(--primary);">Funzionalità</h3><button onclick="toggleFeatures(false)" style="background:none; border:none; font-size:24px; color:var(--danger);">&times;</button></div>
-    <div class="feature-item"><h4>1. Biglietto da Visita Digitale (Profilo)</h4><ul><li><strong>QR Code Dinamico:</strong> Permetti a chiunque di salvarti in rubrica istantaneamente inquadrando lo schermo.</li><li><strong>Viralità Integrata:</strong> Il tasto "Crea il tuo LiProfil" permette ai tuoi contatti di scaricare la tua stessa tecnologia.</li><li><strong>Identity Branding:</strong> Logo personalizzato e icone coordinate per un impatto professionale immediato.</li></ul></div>
-    <div class="feature-item"><h4>2. Ufficio Mobile (Modalità Guida)</h4><ul><li><strong>Dettatura Hands-Free:</strong> Progettata per chi viaggia. L'app ascolta, trascrive e salva i tuoi pensieri senza toccare il telefono.</li><li><strong>Comandi Vocali "Post-Salvataggio":</strong> Dopo aver dettato, basta dire "WhatsApp" o "Email" per inviare immediatamente la nota.</li><li><strong>Sintesi Vocale:</strong> L'app ti risponde per confermare il salvataggio.</li></ul></div>
-    <div class="feature-item"><h4>3. Organizer & Agenda Storica</h4><ul><li><strong>Input Rapido:</strong> Area di testo per appunti veloci con supporto per il microfono manuale.</li><li><strong>Archivio Cronologico:</strong> Calendario integrato che evidenzia con un punto blu i giorni in cui hai preso appunti.</li><li><strong>Ricerca Storica:</strong> Clicca su un giorno qualsiasi nel calendario per recuperare istantaneamente le note.</li></ul></div>
-    <div class="feature-item"><h4>4. Gestione Dati & Privacy</h4><ul><li><strong>Privacy Bunker:</strong> Tutti i dati sono salvati esclusivamente nella memoria locale del tuo smartphone.</li><li><strong>Backup & Esportazione:</strong> Copia con un tasto l'intero archivio per i tuoi report dalla sezione Assistenza.</li><li><strong>Multi-Canale:</strong> Ogni nota salvata può essere condivisa via WhatsApp o Email con un solo tocco.</li></ul></div>
+    <div class="feature-item"><h4>1. Biglietto da Visita Digitale (Profilo)</h4><ul><li>• <strong>QR Code Dinamico:</strong> Permetti a chiunque di salvarti in rubrica istantaneamente inquadrando lo schermo.</li><li>• <strong>Viralità Integrata:</strong> Il tasto "Crea il tuo LiProfil" permette ai tuoi contatti di scaricare la tua stessa tecnologia.</li><li>• <strong>Identity Branding:</strong> Logo personalizzato e icone coordinate per un impatto professionale immediato.</li></ul></div>
+    <div class="feature-item"><h4>2. Ufficio Mobile (Modalità Guida)</h4><ul><li>• <strong>Dettatura Hands-Free:</strong> Progettata per chi viaggia. L'app ascolta, trascrive e salva i tuoi pensieri senza toccare il telefono.</li><li>• <strong>Comandi Vocali "Post-Salvataggio":</strong> Dopo aver dettato, basta dire "WhatsApp" o "Email" per inviare immediatamente la nota.</li><li>• <strong>Sintesi Vocale:</strong> L'app ti risponde per confermare il salvataggio.</li></ul></div>
+    <div class="feature-item"><h4>3. Organizer & Agenda Storica</h4><ul><li>• <strong>Input Rapido:</strong> Area di testo per appunti veloci con supporto per il microfono manuale.</li><li>• <strong>Archivio Cronologico:</strong> Calendario integrato che evidenzia con un punto blu i giorni in cui hai preso appunti.</li><li>• <strong>Ricerca Storica:</strong> Clicca su un giorno qualsiasi nel calendario per recuperare istantaneamente le note.</li></ul></div>
+    <div class="feature-item"><h4>4. Gestione Dati & Privacy</h4><ul><li>• <strong>Privacy Bunker:</strong> Tutti i dati sono salvati esclusivamente nella memoria locale del tuo smartphone.</li><li>• <strong>Backup & Esportazione:</strong> Copia con un tasto l'intero archivio per i tuoi report dalla sezione Assistenza.</li><li>• <strong>Multi-Canale:</strong> Ogni nota salvata può essere condivisa via WhatsApp o Email con un solo tocco.</li></ul></div>
     <button onclick="toggleFeatures(false)" class="btn-save" style="background:var(--primary);">Chiudi</button>
 </div>
 
@@ -159,7 +159,7 @@
                     <button class="mail-btn" onclick="shareMail('${n.content}')"><i class="fa-solid fa-envelope"></i></button>
                 </div>
             </div>
-        `).join('') || "<p style='font-size:12px; color:#999; text-align:center;'>Nessun appunto.</p>";
+        `).join('') || "<p style='font-size:12px; color:#999; text-align:center;'>Nessun appunto per questo giorno.</p>";
     }
 
     function saveNote(text) {
@@ -175,6 +175,7 @@
     function saveNoteFromInput() {
         const input = document.getElementById('note-text');
         saveNote(input.value); input.value = "";
+        alert("Nota salvata!");
     }
 
     function shareWA(text) { window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank'); }
